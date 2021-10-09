@@ -37,6 +37,7 @@ from motioneye import tasks
 from motioneye import uploadservices
 from motioneye import utils
 from motioneye import v4l2ctl
+from motioneye import plugin_loader
 
 _CAMERA_CONFIG_FILE_NAME = 'camera-%(id)s.conf'
 _MAIN_CONFIG_FILE_NAME = 'motion.conf'
@@ -1534,7 +1535,6 @@ def simple_mjpeg_camera_dict_to_ui(data):
 
     return ui
 
-
 def get_action_commands(camera_config):
     camera_id = camera_config['@id']
 
@@ -1549,6 +1549,10 @@ def get_action_commands(camera_config):
 
     if camera_config.get('@manual_record'):
         action_commands['record'] = True
+
+
+    if plugin_loader.motioneye_plugins!=None:
+        action_commands=plugin_loader.motioneye_plugins.get_action_commands(camera_config,action_commands,logging)
 
     return action_commands
 

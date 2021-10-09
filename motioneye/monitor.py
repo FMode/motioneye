@@ -22,7 +22,7 @@ import time
 from six.moves.urllib.parse import quote as urlquote
 
 from motioneye import config
-
+from motioneye import plugin_loader
 
 DEFAULT_INTERVAL = 1  # seconds
 
@@ -32,9 +32,12 @@ _interval_by_camera_id = {}
 
 
 def get_monitor_info(camera_id):
+    if (plugin_loader != None):
+        monitor_info=plugin_loader.motioneye_plugins.get_monitor_info(camera_id)
+        return urlquote(monitor_info, safe='')
     now = time.time()
     command = config.get_monitor_command(camera_id)
-    if command is None:
+    if (command is None):
         return ''
 
     monitor_info = _monitor_info_cache_by_camera_id.get(camera_id)

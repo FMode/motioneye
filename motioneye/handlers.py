@@ -1675,9 +1675,13 @@ class ActionHandler(BaseHandler):
         command = action_commands.get(action)
         if not command:
             raise HTTPError(400, 'unknown action')
-
-        logging.debug('executing %s action for camera with id %s: "%s"' % (action, camera_id, command))
-        self.run_command_bg(command)
+        
+        if isinstance(command,str):
+            logging.debug('executing %s action for camera with id %s: "%s"' % (action, camera_id, command))
+            self.run_command_bg(command)
+        else:
+            command(IOLoop)
+            self.finish_json({'status': 0})
 
     def run_command_bg(self, command):
         self.p = subprocess.Popen(command, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
@@ -1689,7 +1693,7 @@ class ActionHandler(BaseHandler):
     def check_command(self):
         exit_status = self.p.poll()
         if exit_status is not None:
-            output = self.p.stdout.read()
+            output = self.p.stdout.read().decode()
             lines = output.split('\n')
             if not lines[-1]:
                 lines = lines[:-1]
