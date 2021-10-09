@@ -23,8 +23,8 @@ GPIO.output(18, 0)
 servo_min = 0  # Min pulse length out of 4096
 servo_max = 180  # Max pulse length out of 4096
 
-vpos=90
 hpos=90
+vpos=90
 
 _logging=None
 def get_monitor_info(camera_id):
