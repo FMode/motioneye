@@ -348,7 +348,7 @@ def is_simple_mjpeg_camera(config):
 def test_mjpeg_url(data, auth_modes, allow_jpeg, callback):
     data = dict(data)
     data.setdefault('scheme', 'http')
-    data.setdefault('host', '127.0.0.1')
+    data.setdefault('host', '[::1]')
     data.setdefault('port', '80')
     data.setdefault('path', '')
     data.setdefault('username', None)
@@ -426,7 +426,7 @@ def test_rtsp_url(data, callback):
     from motioneye import motionctl
 
     scheme = data.get('scheme', 'rtsp')
-    host = data.get('host', '127.0.0.1')
+    host = data.get('host', '[::1]')
     port = data.get('port') or '554'
     path = data.get('path') or ''
     username = data.get('username')
@@ -452,7 +452,7 @@ def test_rtsp_url(data, callback):
         else:
             logging.debug('testing rtsp netcam at %s' % url)
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
+        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM, 0)
         s.settimeout(settings.MJPG_CLIENT_TIMEOUT)
         stream = IOStream(s)
         stream.set_close_callback(on_close)
@@ -623,7 +623,7 @@ def test_rtsp_url(data, callback):
 
 def test_rtmp_url(data, callback):
     scheme = data.get('scheme', 'rtmp')
-    host = data.get('host', '127.0.0.1')
+    host = data.get('host', '[::1]')
     port = data.get('port') or '1935'
     path = data.get('path') or ''
     username = data.get('username')

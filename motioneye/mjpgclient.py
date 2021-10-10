@@ -49,7 +49,7 @@ class MjpgClient(IOStream):
         self._last_jpg = None
         self._last_jpg_times = []
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
+        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM, 0)
         IOStream.__init__(self, s)
 
         self.set_close_callback(self.on_close)

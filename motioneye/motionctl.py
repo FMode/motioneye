@@ -223,7 +223,7 @@ def get_motion_detection(camera_id, callback):
         logging.error(error)
         return callback(error=error)
 
-    url = 'http://127.0.0.1:%(port)s/%(id)s/detection/status' % {
+    url = 'http://[::1]:%(port)s/%(id)s/detection/status' % {
             'port': settings.MOTION_CONTROL_PORT, 'id': motion_camera_id}
 
     def on_response(response):
@@ -257,7 +257,7 @@ def set_motion_detection(camera_id, enabled):
             'what': ['disabling', 'enabling'][enabled],
             'id': camera_id})
 
-    url = 'http://127.0.0.1:%(port)s/%(id)s/detection/%(enabled)s' % {
+    url = 'http://[::1]:%(port)s/%(id)s/detection/%(enabled)s' % {
             'port': settings.MOTION_CONTROL_PORT,
             'id': motion_camera_id,
             'enabled': ['pause', 'start'][enabled]}
@@ -288,7 +288,7 @@ def take_snapshot(camera_id):
 
     logging.debug('taking snapshot for camera with id %(id)s' % {'id': camera_id})
 
-    url = 'http://127.0.0.1:%(port)s/%(id)s/action/snapshot' % {
+    url = 'http://[::1]:%(port)s/%(id)s/action/snapshot' % {
             'port': settings.MOTION_CONTROL_PORT,
             'id': motion_camera_id}
 

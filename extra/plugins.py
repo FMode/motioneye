@@ -77,7 +77,7 @@ def left(IOLoop):
 
 def right(IOLoop):
     global hpos
-    _logging.info("right %d" %(hpos))    
+    #_logging.info("right %d" %(hpos))    
     if ( hpos > servo_min ):
         hpos = hpos - 10
     kit.servo[1].angle=hpos
@@ -89,7 +89,7 @@ def right(IOLoop):
 
 def down(IOLoop):
     global vpos
-    _logging.info("down %d" %(vpos))
+    #_logging.info("down %d" %(vpos))
     if ( vpos < servo_max ):
         vpos = vpos + 10
         _logging.info(vpos)
@@ -102,7 +102,7 @@ def down(IOLoop):
 
 def up(IOLoop):
     global vpos
-    _logging.info("up %d" %(vpos))
+    #_logging.info("up %d" %(vpos))
     if ( vpos > servo_min ):
         vpos = vpos - 10
     kit.servo[1].angle=hpos
